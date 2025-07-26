@@ -85,6 +85,55 @@
         "staticFilePath": "dist/apps/nx-monorepo/browser",
         "spa": true
       }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "apps/nx-monorepo/.storybook",
+        "browserTarget": "nx-monorepo:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/nx-monorepo",
+        "configDir": "apps/nx-monorepo/.storybook",
+        "browserTarget": "nx-monorepo:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c apps/nx-monorepo/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build-storybook"],
+      "options": {
+        "buildTarget": "nx-monorepo:build-storybook",
+        "staticFilePath": "dist/storybook/nx-monorepo",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "nx-monorepo:build-storybook:ci"
+        }
+      }
     }
   }
 }
