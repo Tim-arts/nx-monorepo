@@ -2,7 +2,9 @@
   "name": "@nx-monorepo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "nx-monorepo:sb": "nx run nx-monorepo:storybook"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~20.1.0",
